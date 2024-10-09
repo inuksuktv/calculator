@@ -1,0 +1,35 @@
+button {
+    flex-grow: 1;
+}
+
+.calculator {
+    display: flex;
+    flex-direction: column;
+    width: 100px;
+}
+
+.display {
+    text-align: right;
+}
+
+.inputs {
+    display: flex;
+}
+
+.digits {
+    display: flex;
+    flex: auto;
+    flex-direction: column;
+    flex-grow: 0.75;
+    flex-wrap: wrap;
+}
+
+.row {
+    display: flex;
+}
+
+.operators {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 0.25;
+}
