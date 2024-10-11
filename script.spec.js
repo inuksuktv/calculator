@@ -19,7 +19,7 @@ describe('subtract', () => {
         expect(script.subtract(-10, -4)).toBe(-6);
     })
 
-    test('subtracts numbers of mixed parity', () => {
+    test('subtracts numbers of mixed sign', () => {
         expect(script.subtract(-8, 7)).toBe(-15);
     })
 })
@@ -33,7 +33,7 @@ describe('multiply', () => {
         expect(script.multiply(-1, -4)).toBe(4);
     })
 
-    test('multiples numbers of mixed parity', () => {
+    test('multiples numbers of mixed sign', () => {
         expect(script.multiply(2, -3)).toBe(-6);
     })
 })
@@ -47,7 +47,7 @@ describe('divide', () => {
         expect(script.divide(-9, -3)).toBe(3);
     })
 
-    test('divides numbers of mixed parity', () => {
+    test('divides numbers of mixed sign', () => {
         expect(script.divide(-4, 2)).toBe(-2);
     })
 
