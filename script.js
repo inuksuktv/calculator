@@ -35,6 +35,7 @@ sevenButton.addEventListener("click", digitInput);
 eightButton.addEventListener("click", digitInput);
 nineButton.addEventListener("click", digitInput);
 clearButton.addEventListener("click", clear);
+signButton.addEventListener("click", changeSign);
 divisionButton.addEventListener("click", division);
 multiplicationButton.addEventListener("click", multiplication);
 subtractionButton.addEventListener("click", subtraction);
@@ -60,6 +61,13 @@ function clear() {
   displayValue = "0";
   display.textContent = displayValue;
   displayIsStale = true;
+}
+
+function changeSign() {
+  let value = parseInt(displayValue);
+  value *= -1;
+  displayValue = value.toString();
+  display.textContent = displayValue;
 }
 
 function division() {
