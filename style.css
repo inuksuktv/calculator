@@ -1,36 +1,48 @@
 button {
-    flex-grow: 1;
+  flex-grow: 1;
 }
 
 .calculator {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    width: 150px;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  width: 150px;
 }
 
 .display {
-    text-align: right;
+  background-color: lightgrey;
+  font-size: 24px;
+  padding: 3px;
+  text-align: right;
 }
 
 .inputs {
-    display: flex;
+  display: flex;
 }
 
 .digits {
-    display: flex;
-    flex: auto;
-    flex-direction: column;
-    flex-grow: 0.75;
-    flex-wrap: wrap;
+  display: flex;
+  flex: auto;
+  flex-direction: column;
+  flex-grow: 0.75;
+  flex-wrap: wrap;
 }
 
 .row {
-    display: flex;
+  display: flex;
+}
+
+.sign {
+  font-size: 10px;
 }
 
 .operators {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 0.25;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 0.25;
+}
+
+.operators button {
+  background-color: lightblue;
 }

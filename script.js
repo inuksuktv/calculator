@@ -1,9 +1,3 @@
-let firstNumber = "";
-let secondNumber = "";
-let currentOperator = null;
-let displayValue = "0";
-let displayIsStale = true;
-
 const display = document.querySelector(".display");
 const zeroButton = document.querySelector(".zero");
 const oneButton = document.querySelector(".one");
@@ -24,6 +18,12 @@ const subtractionButton = document.querySelector(".subtract");
 const additionButton = document.querySelector(".add");
 const equalsButton = document.querySelector(".equals");
 
+let firstNumber = "";
+let currentOperator = null;
+let displayValue = display.textContent;
+let displayIsStale = true;
+const maxDisplayLength = 9;
+
 zeroButton.addEventListener("click", digitInput);
 oneButton.addEventListener("click", digitInput);
 twoButton.addEventListener("click", digitInput);
@@ -36,19 +36,21 @@ eightButton.addEventListener("click", digitInput);
 nineButton.addEventListener("click", digitInput);
 clearButton.addEventListener("click", clear);
 signButton.addEventListener("click", changeSign);
+decimalButton.addEventListener("click", decimal);
 divisionButton.addEventListener("click", division);
 multiplicationButton.addEventListener("click", multiplication);
 subtractionButton.addEventListener("click", subtraction);
 additionButton.addEventListener("click", addition);
 equalsButton.addEventListener("click", equals);
 
+// If the display is stale, entering a digit will clear the current display.
 function digitInput() {
   if (displayIsStale) {
     displayValue = this.textContent;
     display.textContent = this.textContent;
     displayIsStale = false;
   }
-  else if (displayValue.length < 9) {
+  else if (displayValue.length < maxDisplayLength) {
     displayValue += this.textContent;
     display.textContent = displayValue;
   }
@@ -56,7 +58,6 @@ function digitInput() {
 
 function clear() {
   firstNumber = "";
-  secondNumber = "";
   currentOperator = null;
   displayValue = "0";
   display.textContent = displayValue;
@@ -70,9 +71,20 @@ function changeSign() {
   display.textContent = displayValue;
 }
 
+function decimal() {
+  if (hasDecimal(displayValue)) return;
+  displayValue += ".";
+  display.textContent = displayValue;
+  displayIsStale = false;
+}
+
+function hasDecimal(string) {
+  return string.indexOf('.') !== -1;
+}
+
 function division() {
   if (firstNumber === "") {
-    store(divide);
+    storeDisplay(divide);
   }
   else if (currentOperator !== null) {
     const result = calculateResult();
@@ -82,7 +94,7 @@ function division() {
 
 function multiplication() {
   if (firstNumber === "") {
-    store(multiply);
+    storeDisplay(multiply);
   }
   else if (currentOperator !== null) {
     const result = calculateResult();
@@ -92,7 +104,7 @@ function multiplication() {
 
 function subtraction() {
   if (firstNumber === "") {
-    store(subtract);
+    storeDisplay(subtract);
   }
   else if (currentOperator !== null) {
     const result = calculateResult();
@@ -102,7 +114,7 @@ function subtraction() {
 
 function addition() {
   if (firstNumber === "") {
-    store(add);
+    storeDisplay(add);
   }
   else if (currentOperator !== null) {
     const result = calculateResult();
@@ -117,7 +129,7 @@ function equals() {
   }
 }
 
-function store(operator) {
+function storeDisplay(operator) {
   firstNumber = displayValue;
   currentOperator = operator;
   displayIsStale = true;
@@ -128,10 +140,23 @@ function calculateResult() {
 }
 
 function updateDisplay(result) {
+  // Convert large numbers to scientific notation to avoid overflow.
+  if (result >= 1000000000) {
+    result = result.toExponential(6);
+  }
+  // Round long decimals to avoid overflow.
+  else if (result.toString().length > maxDisplayLength) {
+    const decimalLength = (maxDisplayLength - Math.round(result).toString().length)
+    result = result.toFixed(decimalLength);
+  }
   displayValue = result;
   firstNumber = result;
   display.textContent = result;
   displayIsStale = true;
+}
+
+function operate(num1, num2, operation) {
+  return operation(num1, num2);
 }
 
 function divide(a, b) {
@@ -149,10 +174,6 @@ function subtract(a, b) {
 
 function add(a, b) {
   return parseInt(a) + parseInt(b);
-}
-
-function operate(num1, num2, operation) {
-  return operation(num1, num2);
 }
 
 module.exports = {
