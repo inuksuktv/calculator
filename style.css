@@ -5,7 +5,8 @@ button {
 .calculator {
     display: flex;
     flex-direction: column;
-    width: 100px;
+    flex-grow: 1;
+    width: 150px;
 }
 
 .display {
